@@ -33,6 +33,6 @@ function slideshow() {
     if (x == 4) x = 1;
     else x++;
 
-    setInterval("slideshowImg()", 3000); // every 3 seconds
+    setInterval("slideshow()", 3000); // every 3 seconds
 
 }
