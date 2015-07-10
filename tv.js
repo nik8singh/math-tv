@@ -1,38 +1,58 @@
-var x = 1;
+var y = 1;
+var z= 1;
 var script = [];
 
 function extractInfo() {
-    //Grants, scholarships and awards 
-    $.get("https://workspaces.ndsu.edu/typo3/mod.php?M=web_WorkspacesWorkspaces&moduleToken=570a07bbea790f5416809d308dee1e1f1846f456&id=102902&tx_workspaces_web_workspacesworkspaces%5Baction%5D=index&tx_workspaces_web_workspacesworkspaces%5Bcontroller%5D=Preview&id=102902", function (data) {
-        script[1] = $(data).find('.news-text-wrap').text();
-    });
 
-    //Announcements
-    $.get("https://workspaces.ndsu.edu/index.php?id=102905&tx_news_pi1%5Bnews%5D=20269&cHash=8441d13213690ba54616e2d9268e9bab", function (data) {
-        script[2] = $(data).find('.news-text-wrap').text();
-    });
+alert();
+window.location.href = "https://workspaces.ndsu.edu/typo3/mod.php?M=web_WorkspacesWorkspaces&moduleToken=930d7d264f0a66b18eb40e14425d1142baa02a73&tx_workspaces_web_workspacesworkspaces%5Baction%5D=index&tx_workspaces_web_workspacesworkspaces%5Bcontroller%5D=Preview&id=102905";
 
-    //Faculty News 
-    $.get("https://workspaces.ndsu.edu/index.php?id=102905&tx_news_pi1%5Bnews%5D=20265&cHash=b3288ed652fd366db49937d16cdf5ceb", function (data) {
-        script[3] = $(data).find('.news-text-wrap').text();
-    });
+var ifr = document.getElementsByName("iframe")[0];
+var news_list_items = ifr.contentDocument.getElementsByClassName("news-latest-container")[0].getElementsByTagName("li");
 
-    //PhD dissertations, Degree completion 
-    $.get("https://workspaces.ndsu.edu/typo3/mod.php?M=web_WorkspacesWorkspaces&moduleToken=570a07bbea790f5416809d308dee1e1f1846f456&id=102902&tx_workspaces_web_workspacesworkspaces%5Baction%5D=index&tx_workspaces_web_workspacesworkspaces%5Bcontroller%5D=Preview&id=102902", function (data) {
-        script[4] = $(data).find('.news-text-wrap').text();
-    });
+get_anchors = function (a) { 
+	var b=[]; 
+	for (var x=0; x<a.length; x++) 
+	 b[x] = a[x].getElementsByTagName("a")[0].href; 
+    return(b);
+	   }
 
+    var news_list_urls = get_anchors(news_list_items);
+    
+    //loop for multiple ajax call -- not working
+    //for(int i=0 ; i<news_list_urls.length ; i++)   
+       getInfo(news_list_urls[i]);
+   
+    y=1;
     slideshow();
 
 }
 
+
+function getInfo(URLs){
+	
+	$.ajax({
+        url: URLs,
+        success: function (data) {
+            script[y] = data;
+        },
+        error: function (request, status, error) {
+            alert("Request: " + request.responseText + "\nStatus: " + status.responseText + "\nError: " + error.responseText);
+        }
+
+    });
+  y++;
+	
+}
+
 function slideshow() {
-    document.getElementById("#myDiv").innerHTML = script[x];
-    var SlideImage = document.getElementById("slideshow");
 
-    if (x == 4) x = 1;
-    else x++;
-
-    setInterval("slideshow()", 3000); // every 3 seconds
-
+       //document.getElementById("myDiv").innerHTML = z;
+       document.getElementById("myDiv").innerHTML = script[z];
+       
+       if (z == script.length) 
+       z = 1;
+       else
+       z++;
+       setTimeout(slideshow, 3000); // after every 3 seconds
 }
