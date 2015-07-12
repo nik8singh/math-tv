@@ -1,7 +1,11 @@
 var tv = {
+
+    // configuration variables
     time_to_show_slide: 3000,
     iterations_before_reinit: 100,
     news_urls: new Array( "http://localhost:8080/news-0.html"  , "http://localhost:8080/news-1.html" ),
+    // end of configuration variables
+
     news_iframes: [],
     slideshow_iframes: [],
     default_style: function (e) { e.style.display = "none"; },
@@ -25,7 +29,6 @@ var tv = {
 	return ifr_list[0];
     },
     get_news_list_items: function (ifr) {
-	//alert(ifr);
 	return ifr.contentDocument.getElementsByClassName("news-latest-container")[0].getElementsByTagName("li");
 	},
     get_anchors: function (a) { 
@@ -52,7 +55,6 @@ var tv = {
 	return ifr;
     },
     create_slideshow_iframe: function (url) {
-	//alert(url);
 	var ifr = document.createElement("iframe");
 	tv.default_style(ifr);
 	ifr.name = url;
@@ -67,10 +69,8 @@ var tv = {
     do_slideshow: function () {
 	var s=0, ifr, n=0;
 	var slideshow = function () {
-	    //alert("s="+s+" n="+n,"tv.slideshow_iframes=",tv.slideshow_iframes);
 	    n++;
 	    if (n<tv.iterations_before_reinit) {
-		    //alert("here1");
 		if (tv.slideshow_iframes.length>0) {
 		    ifr = tv.slideshow_iframes[s];
 		    tv.default_style(ifr);
@@ -78,12 +78,10 @@ var tv = {
 		    ifr = tv.slideshow_iframes[s];
 		    tv.show_style(ifr);
 		} else {
-		    //alert("here2");
 		    tv.slideshow_iframes = tv.get_slideshow_iframes();
 		    n--;
 		}
 	    } else {
-		//alert("here3");
 		window.location.reload();
 		tv.init();
 	    }
@@ -93,7 +91,6 @@ var tv = {
     },
     mapcar: function(f,a) {
 	var b = new Array(a.length);
-	//alert("a[0]="+a[0]+"b.length="+b.length);
 	for(var i=0; i<a.length; i++)
 	    b[i] = f(a[i]);
 	return b;
