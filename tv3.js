@@ -10,7 +10,7 @@ var tv = {
     slideshow_iframes: [],
     default_style: function (e) { e.style.display = "none"; },
     show_style: function (e) {
-	e.style.width = "1920px"; e.style.height = "800px"; e.style.display = "block";
+	e.style.display = "block";
     },
     create_iframe: function (url) {
 	var ifr = document.createElement("iframe");
