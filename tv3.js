@@ -90,10 +90,7 @@ var tv = {
 	slideshow();
     },
     mapcar: function(f,a) {
-	var b = new Array(a.length);
-	for(var i=0; i<a.length; i++)
-	    b[i] = f(a[i]);
-	return b;
+	return a.map(f);
     },
     init: function () {
 	tv.news_iframes = tv.mapcar(tv.create_news_iframe, tv.news_urls);
