@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         tv Userscript
-// @description  Fetchin news element and slideShowing it.
-// @include      *
+// @description  Fetching news elements and slideShowing them.
+// @include      http://localhost:8080/demo.html
+// @grant        none
 // ==/UserScript==
 
 
@@ -97,12 +98,10 @@ var tv = {
 	slideshow();
     },
     mapcar: function(f,a) {
-	var b = new Array(a.length);
-	for(var i=0; i<a.length; i++)
-	    b[i] = f(a[i]);
-	return b;
+	a.map(f);
     },
     init: function () {
+	alert("fired");
 	tv.news_iframes = tv.mapcar(tv.create_news_iframe, tv.news_urls);
 	tv.slideshow_iframes = tv.get_slideshow_iframes();
 	tv.do_slideshow();
